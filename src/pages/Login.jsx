@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 import { login as authLogin } from '../store/authSlice'
-import authService from '../appwrite/auth'
-import { Button, Input } from '../components/index'
+import authService from '../appwrite/auth';
+import blog from '../img/blog.png'
+
 
 
 export default function Login() {
@@ -45,9 +45,7 @@ export default function Login() {
     <div className='flex items-center justify-center w-full'>
       <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
         <div className="mb-2 flex justify-center">
-          <span className='inline-block w-full max-w-[100px]'>
-            LOgo
-          </span>
+        <img src={blog} className=' w-14 h-14 rounded-full border border-red-500 border-spacing-8' alt="" />
         </div>
 
         <h2 className="text-center text-2xl font-bold leading-tight">Sign in to your account</h2>
@@ -64,9 +62,11 @@ export default function Login() {
 
 
         <form onSubmit={handleSubmit}>
+        <div className='space-y-5'>
           <input type="email" name="email" placeholder="Enter your email" className='px-3 py-2 my-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full' onChange={handleInputChange} value={data.email} />
           <input type="password" name="password" placeholder="Enter your Password" className='px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full my-2' onChange={handleInputChange} value={data.password} />
-          <button type='submit' className='w-full bg-blue-600 text-white px-4 py-2 rounded-lg mt-5'>Sign in</button>
+          <button type='submit' className='w-full bg-blue-500 text-white px-4 py-2 rounded-lg mt-20 hover:bg-blue-700'>Sign in</button>
+          </div>
         </form>
 
 

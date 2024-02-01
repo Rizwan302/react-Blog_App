@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { LogoutBtn, Container } from '../index'
+import { LogoutBtn, Container } from '../index';
+import blog from '../../img/blog.png'
 
 export default function Header() {
   const authStatus = useSelector((state) => state.auth.status);
@@ -42,14 +43,14 @@ export default function Header() {
         <nav className='flex '>
           <div className="w-1/5 px-2 flex items-center justify-center">
             <Link to="/">
-              <h1 className=' font-semibold font-serif'>Logo</h1>
+              <img src={blog} className=' w-12 h-12 rounded-full border border-white border-spacing-8' alt="" />
             </Link>
           </div>
 
           <ul className='flex w-3/5 justify-between items-center text-lg font-normal  font-serif'>
             {navItems.map((item) =>
               item.active ? (
-                <li key={item.name}>
+                <li key={item.name} >
                   <button onClick={() => navigate(item.slug)}>{item.name}</button>
                 </li>
               ) : null)}
