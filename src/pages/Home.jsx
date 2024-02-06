@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import appwriteService from '../appwrite/config'
 import { Container } from '../components/index'
+import PostCard from '../components/PostCard'
 
 
 export default function Home() {
@@ -33,7 +34,7 @@ export default function Home() {
         <div className="flex flex-wrap">
           {posts.map((post) => (
             <div key={post.$id} className='p-2 w-1/4'>
-              <PostCard {...post} />
+              <PostCard {...post}/>
             </div>
           ))}
         </div>
