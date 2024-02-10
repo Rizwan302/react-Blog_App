@@ -11,23 +11,16 @@ export default function AllPosts() {
       .then((post) => {
         if (post) {
           setPosts(post.documents)
-          console.log(post)
         }
       })
   }, [])
 
-
-    const fetchedPosts =  0
-      console.log('Fetched posts:', posts.documents);
-
-  
-
   return(
     <div className='w-full py-8'>
       <Container>
-        <div className='flex flex-wrap'>
+        <div className='flex flex-wrap justify-start items-start w-full mx-auto'>
           {Array.isArray(posts) && posts.map((post) => (
-            <div key={post.$id} className='m-0 flex'>
+            <div key={post.$id} className='mx-auto'>
               <PostCard {...post} />
             </div>
           ))}
