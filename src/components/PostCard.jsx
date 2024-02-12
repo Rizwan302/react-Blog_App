@@ -4,40 +4,36 @@ import appwriteService from '../appwrite/config'
 
 export default function PostCard({ $id, title, blogimg, content }) {
   return (
-    <Link to={`/post/${$id}`}>
-
-      <div className="card overflow-hidden  transform transition duration-500 lg:w-[28rem] md:w-[25rem] border border-success  bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 rounded-lg m-3">
-        <img className="h-[15rem] w-full object-cover rounded-t-lg" src={appwriteService.getFilePreview(blogimg)} alt="Mountain" />
-        <div className="px-5 pt-4">
-          <div className="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">{title}</div>
-          <p className="text-gray-700 text-base">
-          </p>
+    <>
+      <div class="mb-6 mt-6 block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 lg:mb-0" data-te-ripple-init data-te-ripple-color="light">
+        <div class="relative overflow-hidden bg-cover bg-no-repeat ">
+          <img src={appwriteService.getFilePreview(blogimg)} class="w-full rounded-t-lg h-72" />
+          <a href="#!">
+            <div
+              class="absolute top-0 right-0 bottom-0 left-0 h-full w-full bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100 bg-[hsla(0,0%,98.4%,0.2)]"></div>
+          </a>
+          <svg class="absolute left-0 bottom-0 text-white dark:text-neutral-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="currentColor"
+              d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+          </svg>
         </div>
-        <div className="px-5 my-1 ">
-          <p className="hover:text-info-600 text-base text-info">
-          author
+        <div class="p-6">
+          <h5 class="mb-4 text-lg font-bold">{title}</h5>
+          <p class="mb-6">
+            Ut pretium ultricies dignissim. Sed sit amet mi eget urna
+            placerat vulputate. Ut vulputate est non quam dignissim
+            elementum. Donec a ullamcorper diam.
           </p>
-        </div>
-        <div className="px-5 pt-2 pb-2 flex items-center justify-between">
-          <div className="flex mr-6 text-sm text-gray-200">
-            <span className='mb-4 text-base text-neutral-600 dark:text-neutral-200'>Feb 5, 2024</span>
-          </div>
-          <div className=" flex">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 fill-red-500"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-              />
-            </svg>
-
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-          </div>
+          <Link to={`/post/${$id}`}>
+            <p href="#!" data-te-ripple-init data-te-ripple-color="light"
+              class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">Learn
+              more</p>
+          </Link>
         </div>
       </div>
-    </Link>
+    </>
+
+
   )
 }

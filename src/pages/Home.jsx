@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import appwriteService from '../appwrite/config'
 import { Container } from '../components/index'
 import PostCard from '../components/PostCard'
+import CarourseleBar from '../components/CarourseleBar'
+import Banner from '../components/Banner'
+
 
 
 export default function Home() {
@@ -29,15 +32,22 @@ export default function Home() {
     )
   }
   return (
-    <div className='w-full py-8'>
+    <div className='w-full py-0 px-5'>
       <Container>
-        <div className="flex flex-wrap justify-center items-center w-full">
+
+      <Banner/>
+      <section class="mb-32 text-center lg:text-left md:px-6">
+          <h2 class="mb-12 text-center text-3xl font-bold">
+            All Popular Blog
+          </h2>
+
+        {/* ==== Card ==== */}
+        <div class="grid gap-x-6 lg:grid-cols-3 lg:gap-x-12">
           {posts.map((post) => (
-            <div key={post.$id} className='m-2 '>
               <PostCard {...post}/>
-            </div>
           ))}
-        </div>
+          </div>
+        </section>
       </Container>
     </div>
   )

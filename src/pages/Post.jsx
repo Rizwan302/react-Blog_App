@@ -20,7 +20,7 @@ export default function Post() {
         then((post) => {
           if (post) {
             setPost(post)
-            console.log(post)
+            
           }
           else navigate('/')
         })

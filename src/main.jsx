@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             {" "}
-            <AllPosts />
+            <ShowBlog />
            </AuthLayout>
         ),
       },

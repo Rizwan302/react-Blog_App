@@ -8,19 +8,16 @@ import appwriteService from '../../appwrite/config.js';
 import { Select } from '../index.js';
 
 
-
-
 export default function  PostForm({ post }) {
-
-    
+    console.log(post)
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
-        defaultValues: {
-            title: post?.title || '',
-            slug: post?.$id || "",
+        defaultValues: async () =>({
+            title: await post?.title || "",
+            slug: await post?.$id || "",
             content: post?.content || "",
             status: post?.status || "active",
             blogtype: post?.blogtype || "Science"
-        },
+        }),
     });
 
 
@@ -28,7 +25,6 @@ export default function  PostForm({ post }) {
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
-        console.log("data", data)
         if (post) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
             if (file) {
@@ -78,7 +74,8 @@ export default function  PostForm({ post }) {
             }
         });
         return () => subscription.unsubscribe();
-    }, [watch, slugTransform, setValue])
+    }, [watch, slugTransform, setValue, useForm])
+
     return (
         <div className='py-8'>
             <Container>
@@ -89,6 +86,7 @@ export default function  PostForm({ post }) {
                             
                             <input type="text" placeholder="title" name='title' className='mb-4 px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full'
                                 {...register("title",{ required: true })}
+                                
                                 onInput={(e) => {
                                     const inputValue = e.currentTarget.value;
                                     setValue('title', inputValue, { shouldValidate: true })
