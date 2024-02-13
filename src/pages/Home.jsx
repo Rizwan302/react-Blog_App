@@ -6,7 +6,6 @@ import CarourseleBar from '../components/CarourseleBar'
 import Banner from '../components/Banner'
 
 
-
 export default function Home() {
   const [posts, setPosts] = useState([])
 
@@ -35,17 +34,17 @@ export default function Home() {
     <div className='w-full py-0 px-5'>
       <Container>
 
-      <Banner/>
-      <section class="mb-32 text-center lg:text-left md:px-6">
+        <Banner />
+        <section class="mb-32 text-center lg:text-left md:px-6">
           <h2 class="mb-12 text-center text-3xl font-bold">
             All Popular Blog
           </h2>
 
-        {/* ==== Card ==== */}
-        <div class="grid gap-x-6 lg:grid-cols-3 lg:gap-x-12">
-          {posts.map((post) => (
-              <PostCard {...post}/>
-          ))}
+          {/* ==== Card ==== */}
+          <div class="grid gap-x-6 lg:grid-cols-3 lg:gap-x-12">
+            {posts.map((post) => (
+              <PostCard {...post} />
+            ))}
           </div>
         </section>
       </Container>

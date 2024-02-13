@@ -15,28 +15,15 @@ export default function ShowBlog() {
       then((post) => {
         if (post) {
           const find_Result = post.documents.filter(({ blogtype }) => blogtype?.toLowerCase() === userSlugTrim)
-          console.log("slug trim", find_Result)
           setPosts(find_Result)
         }
       })
   }, [userSlugTrim])
   return (
     <div className='container my-24 mx-auto md:px-6'>
-
-      {/* <Container>
-      <div className='flex flex-wrap justify-start items-start w-full mx-auto'>
-          {Array.isArray(posts) && posts.map((post) => (
-            <div key={post.$id} className='mx-auto'>
-              <PostCard {...post} />
-            </div>
-          ))}
-        </div>
-      </Container> */}
-
-
       <Container>
         <section class="mb-32 text-center lg:text-left">
-          <h2 class="mb-12 text-center text-3xl font-bold">
+          <h2 class="mb-12 pb-4 text-center text-3xl font-bold">
             All Blogs {userSlugTrim}
           </h2>
 
