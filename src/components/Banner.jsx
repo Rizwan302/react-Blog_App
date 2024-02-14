@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import PostCard from './PostCard';
 
 export default function Banner() {
-    const { register, setValue } = useForm({
+    const { register, setValue, handleSubmit } = useForm({
         defaultValues: {
             search: ''
         }
@@ -26,7 +26,7 @@ export default function Banner() {
     useEffect(() => {
 
     }, [handelSearch, searchInput])
-    
+
     return (
         // <!-- Container for demo purpose -->
         <div class="container my-24 mx-auto md:px-6">
@@ -59,7 +59,7 @@ export default function Banner() {
                                     Learn more
                                 </button>
                             </div>
-                            <div class="px-6 py-12 md:px-12 md:flex">
+                            <form onSubmit={handleSubmit(handelSearch)} class="px-6 py-12 md:px-12 md:flex">
                                 <div class="relative mb-3 w-full md:mr-3 md:mb-0" data-te-input-wrapper-init>
                                     <input type='search'
                                         class="peer block min-h-[auto] w-full rounded border-1 py-[0.32rem] px-3 leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-black dark:placeholder:text-black dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0 text-black "
@@ -76,10 +76,11 @@ export default function Banner() {
                                 <button type="submit"
                                     class="inline-block rounded bg-primary px-7 pt-3 pb-2.5 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] bg-green-600"
                                     data-te-ripple-init data-te-ripple-color="light"
-                                    onClick={handelSearch}>
+                                    // onClick={handelSearch}
+                                    >
                                     Search
                                 </button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

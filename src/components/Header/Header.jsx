@@ -8,16 +8,29 @@ import blog from '../../img/blog.png'
 import {
   Collapse,
   Dropdown,
-  Ripple,
   initTE,
 } from "tw-elements";
+import { dark, light } from '../../store/themSlice.js';
 
 
 export default function Header() {
   const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate();
   const [findSlug, setFindSlug] = useState('')
+  const userTheme = useSelector(state => state.theme);
+  
+
   const dispatch = useDispatch()
+
+  const handleCheckboxChange = () => {
+    if (userTheme.status === 'light') {
+      dispatch(dark({ body: '#0f172a', text: '#e2e8f0' }));
+
+    } else if (userTheme.status === 'dark') {
+      console.log(userTheme.status)
+      dispatch(light({ body: '#f4f7ff', text: '#18181b' }));
+    }
+  }
 
 
   const handleNavigation = (path) => {
@@ -27,7 +40,7 @@ export default function Header() {
 
   useEffect(() => {
     dispatch(slug(findSlug));
-    initTE({ Collapse, Dropdown, Ripple });
+    initTE({ Collapse, Dropdown });
   }, [findSlug]);
 
   const navItems = [
@@ -162,139 +175,194 @@ export default function Header() {
   ]
   return (
     <>
-      <header className=''>
-        <Container>
+      <nav
+        className={`flex-no-wrap relative flex w-full items-center justify-between  py-2 shadow-md shadow-black/5  lg:flex-wrap lg:justify-start lg:py-4 ${userTheme.themeColor? `bg-[#c9d9ed] text-black`: `bg-[#293758] text-[#e2e8f0] shadow-slate-200`}`}>
+        <div className="flex w-full flex-wrap items-center justify-between px-3">
+          {/* <Container> */}
 
-          <nav
-            className="flex-no-wrap relative flex w-full items-center justify-between  py-2 shadow-md shadow-black/5 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4 bg-sky-600 py-2">
-            <div className="flex w-full flex-wrap items-center justify-between px-3">
-              {/* <!-- Hamburger button for mobile view --> */}
+          <button
+            className="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
+            type="button"
+            data-te-collapse-init
+            data-te-target="#navbarSupportedContent1"
+            aria-controls="navbarSupportedContent1"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
-
-              {/* <!-- Collapsible navigation container --> */}
-              <div className="flex-grow basis-[100%] items-center lg:!flex lg:basis-auto">
-
-                <img
-                  src={blog}
-                  className='w-14 h-14 rounded-full '
-                  alt="TE Logo"
-                  loading="lazy" />
-
-              </div>
-              <div
-                className="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
-                id="navbarSupportedContent1"
-                data-te-collapse-item>
-                {/* <!-- Logo --> */}
-
-                {/* <!-- Left navigation links --> */}
-                <ul
-                  className="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
-                  data-te-navbar-nav-ref>
-                  {navItems.map((item) =>
-                  (
-                    <li key={item.name} className='mb-4 lg:mb-0 lg:pr-2' >
-                      <a onClick={() => handleNavigation(item.slug)} className='text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400 cursor-pointer font-serif text-lg' slug={item.slug}>{item.name}</a>
-                    </li>
-                  ))}
-
-                  <li className="static" data-te-nav-item-ref data-te-dropdown-ref>
-                    <a
-                      className="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400 cursor-pointer font-serif text-xl flex items-center"
-                      href="#"
-                      data-te-ripple-init
-                      data-te-ripple-color="light"
-                      type="button"
-                      id="dropdownMenuButtonX"
-                      data-te-dropdown-toggle-ref
-                      aria-expanded="false"
-                      data-te-nav-link-ref
-                    >More
-                      <span className="ml-0 w-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          className="h-5 w-5">
-                          <path
-                            fill-rule="evenodd"
-                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                            clip-rule="evenodd" />
-                        </svg>
-                      </span>
-                    </a>
-                    <div
-                      className="absolute  top-full z-[1000] mt-0 hidden w-80 h-96 overflow-auto border-none bg-white bg-clip-padding text-neutral-600 shadow-lg dark:bg-neutral-700 dark:text-neutral-200 [&[data-te-dropdown-show]]:block"
-                      aria-labelledby="dropdownMenuButtonX"
-                      data-te-dropdown-menu-ref>
-                      <div className="px-6 py-5 lg:px-8">
-                        <div className=" gap-6 md:grid-cols-2 lg:grid-cols-4">
-                          <div className='grid'>
-                            {navBusItems.map((item) => (
-                              <a
-                              onClick={() => handleNavigation(item.slug)}
-                                aria-current="true"
-                                key={item.slug}
-                                className="block w-full border-b border-neutral-200 px-6 py-2 transition duration-150 ease-in-out hover:bg-neutral-50 hover:text-neutral-700 dark:border-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-white"
-                              >{item.name}</a
-                              >
-                            ))}
-
-                          </div>
+            <span className="[&>svg]:w-7">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-7 w-7">
+                <path
+                  fill-rule="evenodd"
+                  d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                  clip-rule="evenodd" />
+              </svg>
+            </span>
+          </button>
 
 
+          <div
+            className="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+            id="navbarSupportedContent1"
+            data-te-collapse-item>
 
-                        </div>
+            <a
+              className="mb-4 ml-2 mr-5 mt-3 flex items-center  hover:text-red-900 focus:text-red-900 lg:mb-0 lg:mt-0"
+              href="#">
+              <img
+                src={blog}
+                className='h-[15px]'
+                // style="height: "
+                alt="TE Logo"
+                loading="lazy" />
+            </a>
+
+            <ul
+              className="list-style-none mr-auto flex flex-col pl-0 lg:flex-row gap-3"
+              data-te-navbar-nav-ref>
+              {navItems.map((link) => (
+                <li key={link.slug} className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+                  <a
+                    className={`transition duration-200 hover:text-red-700 focus:text-red-700 font-serif hover:ease-in-out  disabled:text-black/30 motion-reduce:transition-none cursor-pointer ${userTheme.themeColor? `bg-[#c9d9ed] text-black`: `bg-[#293758] text-[#e2e8f0]`}`} 
+                    onClick={() => handleNavigation(link.slug)}
+                    data-te-nav-link-ref
+                  >{link.name}
+                  </a>
+                </li>
+              ))}
+
+              <li className="static mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref data-te-dropdown-ref>
+                <a
+                  className={`transition flex items-center duration-200 hover:text-red-700 font-serif hover:ease-in-out focus:text-red-700 disabled:text-black/30 motion-reduce:transition-none cursor-pointer ${userTheme.themeColor? `bg-[#c9d9ed] text-black`: `bg-[#293758] text-[#e2e8f0]`}`} 
+                  data-te-ripple-init
+                  data-te-ripple-color="light"
+                  type="button"
+                  id="dropdownMenuButtonX"
+                  data-te-dropdown-toggle-ref
+                  aria-expanded="false"
+                  data-te-nav-link-ref
+                >More
+                  <span className="ml-1 w-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="h-5 w-5">
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </a>
+                <div
+                  className="absolute left-0 right-0 top-full z-[1000] mt-0 hidden w-full border-none bg-white bg-clip-padding text-neutral-600 shadow-lg dark:bg-neutral-700 dark:text-neutral-200 [&[data-te-dropdown-show]]:block"
+                  aria-labelledby="dropdownMenuButtonX"
+                  data-te-dropdown-menu-ref>
+                  <div className="px-6 py-5 lg:px-8">
+                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                      <div>
+                        {navBusItems.map((link) => (
+                          <li key={link.slug} className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+                            <a
+                              onClick={() => handleNavigation(link.slug)}
+                              aria-current="true"
+                              className="block w-full border-b border-neutral-200 px-6 py-2 transition duration-150 ease-in-out hover:bg-neutral-50 hover:text-neutral-700 dark:border-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-white"
+                            >
+                              {link.name}
+                            </a>
+                          </li>
+                        ))}
+
                       </div>
                     </div>
-                  </li>
-
-
-                </ul>
-              </div>
-
-              {/* <!-- Right elements --> */}
-              <div className="relative flex items-center gap-2">
-
-                <div
-                  className="relative"
-                  data-te-dropdown-ref
-                  data-te-dropdown-alignment="end">
-                  {
-                    authStatus ? (
-                      navItemswrite.map((item) => (
-                        <button key={item.name} onClick={() => navigate(item.slug)} className='w-14 h-14 border p-2 rounded-full border-white bg-green-700 font-serif text-white items-center flex text-xs justify-center text-center'>
-                          {item.name}
-                        </button>
-                      ))
-                    ) : null
-                  }
+                  </div>
                 </div>
-                <div
-                  className="relative"
-                  data-te-dropdown-ref
-                  data-te-dropdown-alignment="end">
+              </li>
+            </ul>
+          </div>
 
-
-                  {
-                    authStatus ? (
-                      <LogoutBtn />
-                    ) : (
-                      navItemsSec.map((item) => (
-                        <button key={item.name} onClick={() => navigate(item.slug)} className='w-14 h-14 border p-2 rounded-full border-white bg-green-700 font-serif text-white items-center flex text-xs justify-center'>
-                          {item.name}
-                        </button>
-                      ))
-                    )
-                  }
-
-                </div>
-              </div>
+          <div className="relative flex items-center gap-2">
+            <div
+              className="relative"
+              data-te-dropdown-ref
+              data-te-dropdown-alignment="end">
+              {
+                authStatus ? (
+                  navItemswrite.map((item) => (
+                    <button key={item.name} onClick={() => navigate(item.slug)} className='w-14 h-14 border p-2 rounded-full border-white bg-green-700 font-serif text-white items-center flex text-xs justify-center text-center'>
+                      {item.name}
+                    </button>
+                  ))
+                ) : null
+              }
             </div>
-          </nav>
+            <div
+              className="relative"
+              data-te-dropdown-ref
+              data-te-dropdown-alignment="end">
 
-        </Container>
-      </header>
+
+              {
+                authStatus ? (
+                  <LogoutBtn />
+                ) : (
+                  navItemsSec.map((item) => (
+                    <button key={item.name} onClick={() => navigate(item.slug)} className='w-14 h-14 border p-2 rounded-full border-white bg-green-700 font-serif text-white items-center flex text-xs justify-center'>
+                      {item.name}
+                    </button>
+                  ))
+                )
+              }
+
+            </div>
+
+
+            <div
+              className="relative"
+              data-te-dropdown-ref
+              data-te-dropdown-alignment="end">
+
+                <button className={` flex py-3 px-3 rounded-full h-14 w-14 border text-lg items-center justify-center ${userTheme.themeColor? `bg-[#0f172a] text-[#e2e8f0] border-[#e2e8f0]`: `bg-[#e2e8f0] text-[#0f172a] border-[#0f172a]`}`} onClick={handleCheckboxChange}>
+                  {userTheme.themeColor ? (<svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    className=' fill-current'
+                  >
+                    <g clipPath='url(#clip0_3122_652)'>
+                      <path
+                        fillRule='evenodd'
+                        clipRule='evenodd'
+                        d='M8 0C8.36819 0 8.66667 0.298477 8.66667 0.666667V2C8.66667 2.36819 8.36819 2.66667 8 2.66667C7.63181 2.66667 7.33333 2.36819 7.33333 2V0.666667C7.33333 0.298477 7.63181 0 8 0ZM8 5.33333C6.52724 5.33333 5.33333 6.52724 5.33333 8C5.33333 9.47276 6.52724 10.6667 8 10.6667C9.47276 10.6667 10.6667 9.47276 10.6667 8C10.6667 6.52724 9.47276 5.33333 8 5.33333ZM4 8C4 5.79086 5.79086 4 8 4C10.2091 4 12 5.79086 12 8C12 10.2091 10.2091 12 8 12C5.79086 12 4 10.2091 4 8ZM8.66667 14C8.66667 13.6318 8.36819 13.3333 8 13.3333C7.63181 13.3333 7.33333 13.6318 7.33333 14V15.3333C7.33333 15.7015 7.63181 16 8 16C8.36819 16 8.66667 15.7015 8.66667 15.3333V14ZM2.3411 2.3424C2.60145 2.08205 3.02356 2.08205 3.28391 2.3424L4.23057 3.28906C4.49092 3.54941 4.49092 3.97152 4.23057 4.23187C3.97022 4.49222 3.54811 4.49222 3.28776 4.23187L2.3411 3.28521C2.08075 3.02486 2.08075 2.60275 2.3411 2.3424ZM12.711 11.7682C12.4506 11.5078 12.0285 11.5078 11.7682 11.7682C11.5078 12.0285 11.5078 12.4506 11.7682 12.711L12.7148 13.6577C12.9752 13.918 13.3973 13.918 13.6577 13.6577C13.918 13.3973 13.918 12.9752 13.6577 12.7148L12.711 11.7682ZM0 8C0 7.63181 0.298477 7.33333 0.666667 7.33333H2C2.36819 7.33333 2.66667 7.63181 2.66667 8C2.66667 8.36819 2.36819 8.66667 2 8.66667H0.666667C0.298477 8.66667 0 8.36819 0 8ZM14 7.33333C13.6318 7.33333 13.3333 7.63181 13.3333 8C13.3333 8.36819 13.6318 8.66667 14 8.66667H15.3333C15.7015 8.66667 16 8.36819 16 8C16 7.63181 15.7015 7.33333 15.3333 7.33333H14ZM4.23057 11.7682C4.49092 12.0285 4.49092 12.4506 4.23057 12.711L3.28391 13.6577C3.02356 13.918 2.60145 13.918 2.3411 13.6577C2.08075 13.3973 2.08075 12.9752 2.3411 12.7148L3.28776 11.7682C3.54811 11.5078 3.97022 11.5078 4.23057 11.7682ZM13.6577 3.28521C13.918 3.02486 13.918 2.60275 13.6577 2.3424C13.3973 2.08205 12.9752 2.08205 12.7148 2.3424L11.7682 3.28906C11.5078 3.54941 11.5078 3.97152 11.7682 4.23187C12.0285 4.49222 12.4506 4.49222 12.711 4.23187L13.6577 3.28521Z'
+                      ></path>
+                    </g>
+                  </svg>):(<svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    className=' fill-current'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      clipRule='evenodd'
+                      d='M8.0547 1.67334C8.18372 1.90227 8.16622 2.18562 8.01003 2.39693C7.44055 3.16737 7.16651 4.11662 7.23776 5.07203C7.30901 6.02744 7.72081 6.92554 8.39826 7.60299C9.07571 8.28044 9.97381 8.69224 10.9292 8.76349C11.8846 8.83473 12.8339 8.5607 13.6043 7.99122C13.8156 7.83502 14.099 7.81753 14.3279 7.94655C14.5568 8.07556 14.6886 8.32702 14.6644 8.58868C14.5479 9.84957 14.0747 11.0512 13.3002 12.053C12.5256 13.0547 11.4818 13.8152 10.2909 14.2454C9.09992 14.6756 7.81108 14.7577 6.57516 14.4821C5.33925 14.2065 4.20738 13.5846 3.312 12.6892C2.41661 11.7939 1.79475 10.662 1.51917 9.42608C1.24359 8.19017 1.32569 6.90133 1.75588 5.71038C2.18606 4.51942 2.94652 3.47561 3.94828 2.70109C4.95005 1.92656 6.15168 1.45335 7.41257 1.33682C7.67423 1.31264 7.92568 1.44442 8.0547 1.67334ZM6.21151 2.96004C5.6931 3.1476 5.20432 3.41535 4.76384 3.75591C3.96242 4.37553 3.35405 5.21058 3.00991 6.16334C2.66576 7.11611 2.60008 8.14718 2.82054 9.13591C3.04101 10.1246 3.5385 11.0301 4.25481 11.7464C4.97111 12.4627 5.87661 12.9602 6.86534 13.1807C7.85407 13.4012 8.88514 13.3355 9.8379 12.9913C10.7907 12.6472 11.6257 12.0388 12.2453 11.2374C12.5859 10.7969 12.8536 10.3081 13.0412 9.78974C12.3391 10.0437 11.586 10.1495 10.8301 10.0931C9.55619 9.99813 8.35872 9.44907 7.45545 8.5458C6.55218 7.64253 6.00312 6.44506 5.90812 5.17118C5.85174 4.4152 5.9575 3.66212 6.21151 2.96004Z'
+                    ></path>
+                  </svg>)}
+                </button>
+
+              
+            </div>
+          </div>
+        </div>
+
+      </nav>
+
+      
+
 
     </>
   )

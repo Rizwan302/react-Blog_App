@@ -9,7 +9,9 @@ import { Select } from '../index.js';
 
 
 export default function  PostForm({ post }) {
-    console.log(post)
+    const userTheme = useSelector(state => state.theme);
+
+
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: async () =>({
             title: await post?.title || "",
@@ -79,10 +81,10 @@ export default function  PostForm({ post }) {
     return (
         <div className='py-8'>
             <Container>
-                <form onSubmit={handleSubmit(submit)} className='flex flex-wrap'>
+                <form onSubmit={handleSubmit(submit)} className={`flex flex-wrap ${userTheme.themeColor? `bg-[#e2e8f0] text-black`: `bg-[#0f172a] text-[#e2e8f0]`}`}>
                     <div className="w-2/3 px-2">
                         <div className="">
-                            <label htmlFor="" className=' inline-block pl-1 text-black text-xl ml-1 mb-2'>Title</label>
+                            <label htmlFor="" className=' inline-block pl-1 text-xl ml-1 mb-2'>Title</label>
                             
                             <input type="text" placeholder="title" name='title' className='mb-4 px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full'
                                 {...register("title",{ required: true })}
@@ -95,8 +97,8 @@ export default function  PostForm({ post }) {
 
                         </div>
                         <div className="">
-                            <label htmlFor="" className='inline-block pl-1 text-black text-xl ml-1 mb-2'>Slug</label>
-                            <input type="text" placeholder='Slug' name='slug' className='mb-4 px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full'
+                            <label htmlFor="" className='inline-block pl-1  text-xl ml-1 mb-2'>Slug</label>
+                            <input type="text" placeholder='Slug' name='slug' className='mb-4 px-3 py-2 rounded-lg outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full'
                                 {...register("slug", { required: true })}
                                 onInput={(e) => {
                                     setValue('slug', slugTransform(e.currentTarget.value), { shouldValidate: true })
@@ -107,8 +109,8 @@ export default function  PostForm({ post }) {
                     </div>
 
                     <div className="w-1/3 px-2">
-                        <label htmlFor="" className='text-black text-xl ml-2 my-2'>Upload Image</label>
-                        <input type="file" placeholder='File' name='file' className="mb-4 px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full" {...register("image", { required: !post })}
+                        <label htmlFor="" className=' text-xl ml-2 my-2'>Upload Image</label>
+                        <input type="file" placeholder='File' name='file' className="mb-4 px-3 py-2 rounded-lg outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full" {...register("image", { required: !post })}
                             accept='image/png, image/jpg, image/jpeg, image/gif'
                         />
                         {post && (

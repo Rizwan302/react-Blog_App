@@ -2,12 +2,14 @@ import { Editor } from '@tinymce/tinymce-react'
 import React, { useEffect, useRef, useState } from 'react'
 import Container from './Container';
 import { Controller } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
-    // console.log(name, control, label, defaultValue)
+    const userTheme = useSelector(state => state.theme);
+
     return (
         <div className='w-full'>
-        {label && <div className='inline-block pl-1 text-black text-xl ml-1 mb-2'>{label}</div>}
+        {label && <div className={`inline-block pl-1 text-xl ml-1 mb-2 ${userTheme.themeColor? `bg-[#e2e8f0] text-black`: `bg-[#0f172a] text-[#e2e8f0]`}`}>{label}</div>}
         <Controller
             name={name || "content"}
             control={control}

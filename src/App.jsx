@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { Header, Footer } from './components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from './store/authSlice';
 import { Outlet } from 'react-router-dom';
 import authService from './appwrite/auth'
@@ -10,6 +10,7 @@ import authService from './appwrite/auth'
 function App() {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch();
+  const userTheme = useSelector(state => state.theme);
 
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function App() {
 
 
   return !loading ? (
-    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+    <div className={`min-h-screen flex flex-wrap content-between  ${userTheme.themeColor? `bg-[#e2e8f0] text-black`: `bg-[#0f172a] text-[#e2e8f0]`}`} >
       <div className='w-full block'>
         <Header />
         <main>

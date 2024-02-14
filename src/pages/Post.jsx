@@ -9,9 +9,12 @@ export default function Post() {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
+  const userTheme = useSelector(state => state.theme);
+
 
   const userData = useSelector((state) => state.auth.userData);
   const isAuthor = post && userData ? post.userid === userData.$id : false;
+
 
   useEffect(() => {
     if (slug) {
@@ -122,7 +125,7 @@ export default function Post() {
         </section>
         {/* <!-- Section: Design Block --> */}
 
-        <div className="w-[20rem] bg-blue-300 h-auto">
+        <div className={`w-[20rem] h-auto ${userTheme.themeColor? `bg-[#e2e8f0] text-black`: `bg-[#0f172a] text-[#e2e8f0]`}`}>
           <div className=" block">
             {isAuthor && (
               <div className="py-6 px-2">
