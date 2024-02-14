@@ -214,7 +214,7 @@ export default function Header() {
               href="#">
               <img
                 src={blog}
-                className='h-[15px]'
+                className=' h-10 w-10 rounded-full'
                 // style="height: "
                 alt="TE Logo"
                 loading="lazy" />
