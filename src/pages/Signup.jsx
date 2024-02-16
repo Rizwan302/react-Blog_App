@@ -29,7 +29,10 @@ export default function Signup() {
     e.preventDefault();
     try {
       const userData = await authService.createAccount(data);
-      if (userData) {
+      if (!userData) {
+        setError("Invalid email or password")
+      }
+      else{
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(login(userData));
@@ -39,7 +42,8 @@ export default function Signup() {
       }
     }
     catch (error) {
-      setError(error)
+      const errorMessage = typeof error === "string" ? error : "An error occurred";
+      setError(errorMessage)
     }
   };
 
