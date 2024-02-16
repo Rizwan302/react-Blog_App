@@ -44,7 +44,7 @@ export default function Login() {
         }
       }
     } catch (error) {
-      const errorMessage = typeof error === "string" ? error : "An error occurred";
+      const errorMessage = typeof error === "string" ? error : error;
       setError(errorMessage)
     }
   }

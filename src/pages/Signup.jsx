@@ -45,7 +45,7 @@ export default function Signup() {
       }
     }
     catch (error) {
-      const errorMessage = typeof error === "string" ? error : "An error occurred";
+      const errorMessage = typeof error === "string" ? error : error;
       setError(errorMessage)
     }
   };
