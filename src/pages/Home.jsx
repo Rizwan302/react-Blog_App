@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import appwriteService from '../appwrite/config'
 import { Container } from '../components/index'
 import PostCard from '../components/PostCard'
-import CarourseleBar from '../components/CarourseleBar'
 import Banner from '../components/Banner'
 
 
@@ -35,13 +34,13 @@ export default function Home() {
       <Container>
 
         <Banner />
-        <section class="mb-32 text-center lg:text-left md:px-6">
-          <h2 class="mb-12 text-center text-3xl font-bold">
+        <section className="mb-32 text-center lg:text-left md:px-6">
+          <h2 className="mb-12 text-center text-3xl font-bold">
             All Popular Blog
           </h2>
 
           {/* ==== Card ==== */}
-          <div class="grid gap-x-6 lg:grid-cols-3 lg:gap-x-12">
+          <div className="grid gap-x-6 lg:grid-cols-3 lg:gap-x-12">
             {posts.map((post) => (
               <PostCard {...post} />
             ))}

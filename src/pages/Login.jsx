@@ -29,7 +29,10 @@ export default function Login() {
     e.preventDefault();
     try {
       const session = await authService.login(data);
-      if (session) {
+      if (!session) {
+        setError("Invalid email or password")
+      }
+      else {
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(authLogin(userData))
@@ -37,7 +40,8 @@ export default function Login() {
         }
       }
     } catch (error) {
-      setError(error)
+      const errorMessage = typeof error === "string" ? error : "An error occurred";
+      setError(errorMessage)
     }
   }
 

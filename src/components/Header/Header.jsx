@@ -215,7 +215,6 @@ export default function Header() {
               <img
                 src={blog}
                 className=' h-10 w-10 rounded-full'
-                // style="height: "
                 alt="TE Logo"
                 loading="lazy" />
             </a>
