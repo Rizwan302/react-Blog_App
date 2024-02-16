@@ -44,8 +44,7 @@ export default function Login() {
         }
       }
     } catch (error) {
-      console.log(error)
-      const errorMessage = typeof error === "string" ? error : error;
+      const errorMessage = typeof error === "string" ? error : "An error occurred";
       setError(errorMessage)
     }
   }
