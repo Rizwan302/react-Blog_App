@@ -29,11 +29,14 @@ export default function Signup() {
     e.preventDefault();
     try {
       const userData = await authService.createAccount(data);
+      console.log(userData)
+      
       if (!userData) {
         setError("Invalid email or password")
       }
       else{
         const userData = await authService.getCurrentUser();
+        console.log(userData)
         if (userData) {
           dispatch(login(userData));
           console.log(userData)
@@ -46,6 +49,8 @@ export default function Signup() {
       setError(errorMessage)
     }
   };
+
+
 
 
 
